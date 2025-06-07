@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Empresa de Juegos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #4ecdc4;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(78, 205, 196, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(78, 205, 196, 0.5)); }
+            to { filter: drop-shadow(0 0 30px rgba(255, 107, 107, 0.5)); }
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-weight: bold;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(78, 205, 196, 0.3);
+        }
+
+        /* Games Section */
+        .games-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Carousel */
+        .carousel-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .carousel-slide:nth-child(2) {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .carousel-slide:nth-child(3) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .carousel-slide:nth-child(4) {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .carousel-slide:nth-child(5) {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        /* Estilos mejorados para las imágenes del carrusel */
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .carousel-slide:hover img {
+            transform: scale(1.05);
+        }
+
+        .game-info {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .game-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .game-description {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        .game-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Carousel Controls */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .carousel-nav:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .prev {
+            left: 20px;
+        }
+
+        .next {
+            right: 20px;
+        }
+
+        /* Carousel Indicators */
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .indicator {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .indicator.active {
+            background: #4ecdc4;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 5rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #4ecdc4;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .carousel-slide {
+                height: 350px;
+            }
+
+            .game-title {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .carousel-nav {
+                font-size: 1.5rem;
+                padding: 0.5rem;
+            }
+
+            .prev {
+                left: 10px;
+            }
+
+            .next {
+                right: 10px;
+            }
+        }
+
+        /* Floating particles animation */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(78, 205, 196, 0.6);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 1; }
+            50% { transform: translateY(-100px) rotate(360deg); opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">DominoVamos</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#juegos">Juegos</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>Bienvenido a DominoVamos</h1>
+            <p>Creamos experiencias de juego inolvidables</p>
+            <a href="#juegos" class="cta-button">Explora Nuestros Juegos</a>
+        </div>
+        <!-- Floating particles -->
+        <div class="particle" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="top: 60%; left: 80%; animation-delay: 2s;"></div>
+        <div class="particle" style="top: 30%; left: 70%; animation-delay: 4s;"></div>
+        <div class="particle" style="top: 80%; left: 20%; animation-delay: 1s;"></div>
+        <div class="particle" style="top: 50%; left: 50%; animation-delay: 3s;"></div>
+    </section>
+
+    <!-- Games Section -->
+    <section class="games-section" id="juegos">
+        <h2 class="section-title">Nuestros Juegos</h2>
+        
+        <div class="carousel-container">
+            <div class="carousel" id="carousel">
+                <div class="carousel-slide">
+                   <img src="images/domino 1 vs 1.webp" alt="Dominó 1 vs 1">
+                </div>
+                
+                <div class="carousel-slide">
+                   <img src="images/hq720 (1).jpg" alt="Juego de Dominó">
+                </div>
+                
+                <div class="carousel-slide">
+                    <img src="images/unnamed.jpg" alt="Dominó Multijugador">
+                </div>
+                
+                <div class="carousel-slide">
+                   <img src="images/hq720.jpg" alt="Dominó Clásico">
+                </div>
+                
+                <div class="carousel-slide">
+                    <img src="images/torneo de domino.jpg" alt="Torneo de Dominó">
+                </div>
+            </div>
+            
+            <button class="carousel-nav prev" onclick="prevSlide()">‹</button>
+            <button class="carousel-nav next" onclick="nextSlide()">›</button>
+        </div>
+        
+        <div class="carousel-indicators">
+            <span class="indicator active" onclick="currentSlide(1)"></span>
+            <span class="indicator" onclick="currentSlide(2)"></span>
+            <span class="indicator" onclick="currentSlide(3)"></span>
+            <span class="indicator" onclick="currentSlide(4)"></span>
+            <span class="indicator" onclick="currentSlide(5)"></span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="nosotros">
+        <div class="about-content">
+            <h2 class="section-title">Sobre Nosotros</h2>
+            <p> Domino Vamos es la app donde el dominó se mezcla con la emoción, los torneos y juegos como Crash, Minas y Slots.
+Jugá, ganá recompensas virtuales y canjeá tus premios.
+¡Diversión, estrategia y adrenalina en un solo lugar!
+
+</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacto">
+        <h3>¿Listo para jugar?</h3>
+        <p>Síguenos en nuestras redes sociales para las últimas noticias y actualizaciones</p>
+        <div class="social-links">
+            <a href="https://www.facebook.com/share/1BuStwkcwz/" title="Facebook">📘</a>
+            <a href="https://www.tiktok.com/@jorgeluiscc.yt?_t=ZS-8wxiaZSbknp&_r=1" title="TikTok">🐦</a>
+            <a href="https://www.instagram.com/jorgeluiscc_?igsh=MWJ6YnRpYjY5bnFpOQ==" title="Instagram">📷</a>
+            <a href="https://chat.whatsapp.com/JEYaZjGswHj80xJ54Arwl3" title="Grupo de whatsapp">📺</a>
+        </div>
+        <p style="margin-top: 2rem; opacity: 0.7;">&copy; 2025 DominoVamos. Todos los derechos reservados.</p>
+        
+    </footer>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const indicators = document.querySelectorAll('.indicator');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            const carousel = document.getElementById('carousel');
+            carousel.style.transform = `translateX(-${index * 100}%)`;
+            
+            // Update indicators
+            indicators.forEach((indicator, i) => {
+                indicator.classList.toggle('active', i === index);
+            });
+        }
+
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function prevSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function currentSlide(index) {
+            currentSlideIndex = index - 1;
+            showSlide(currentSlideIndex);
+        }
+
+        // Auto-play carousel
+        setInterval(nextSlide, 5000);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0, 0, 0, 0.95)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.9)';
+            }
+        });
+
+        // Add keyboard navigation for carousel
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        });
+    </script>
+</body>
+</html>
